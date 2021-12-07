@@ -298,10 +298,13 @@ Router.route('/users/:id')
     .delete((req, res) => {
         let userIndex = users.findIndex((usr) => {
             return usr.id === parseInt(req.params.id);
-        })
+        });
+
         if (userIndex = !-1) {
 
             users.splice(userIndex, 1);
+            res.status(204);
+            res.end();
         } else {
             res.status(404);
             res.end()
