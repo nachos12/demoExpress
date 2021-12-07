@@ -235,7 +235,6 @@ let users = [{
     }
 ]
 
-
 //logique pour route user
 Router.route('/users')
     .get((_, res) => {
@@ -253,9 +252,49 @@ Router.route('/users')
 
 //logic pour la route 'user/id'
 Router.route('/users/:id')
-    .get()
-    .put()
-    .patch()
+    .get((req, res) => {
+        //recherche user
+        let user = users.find((usr) => {
+            return usr.id === parseInt(req.params.id);
+        })
+        if (user) {
+            res.status(200);
+            res.json(user);
+        } else {
+            res.status(404);
+            res.end()
+        }
+    })
+    .put((req, res) => {
+        let userIndex = users.findIndex((usr) => {
+            return usr.id === parseInt(req.params.id);
+        })
+        if (userIndex = !-1) {
+            users[userIndex] = req.body;
+            res.status(200)
+            res.json(users[userIndex]);
+
+        } else {
+            res.status(404);
+            res.end()
+        }
+    })
+    .patch((req, res) => {
+        let userIndex = users.findIndex((usr) => {
+            return usr.id === parseInt(req.params.id);
+        })
+        if (userIndex = !-1) {
+            //object.keys retourne les clées d'un objet
+            Object.keys(req.body).forEach((key) => {
+                users[index][key] = req.body[key]
+            })
+            res.status(200)
+            res.json(users[userIndex]);
+        } else {
+            res.status(404);
+            res.end()
+        }
+    })
     .delete();
 
 module.exports = Router
