@@ -5,12 +5,15 @@
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node ."
-
+        "start": "node .",
+        "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node app.js"
     },
     "author": "laurent",
     "license": "ISC",
     "dependencies": {
         "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
     }
 }
