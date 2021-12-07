@@ -295,6 +295,17 @@ Router.route('/users/:id')
             res.end()
         }
     })
-    .delete();
+    .delete((req, res) => {
+        let userIndex = users.findIndex((usr) => {
+            return usr.id === parseInt(req.params.id);
+        })
+        if (userIndex = !-1) {
+
+            users.splice(userIndex, 1);
+        } else {
+            res.status(404);
+            res.end()
+        }
+    });
 
 module.exports = Router
