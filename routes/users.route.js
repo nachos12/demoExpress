@@ -1,314 +1,104 @@
-//import du framework
-const express = require('express')
-    //recup du router express
+// import du framework
+const express = require('express');
+
+const UserModel = require('../models/user.model');
+
+// récupération du Router Express
 const Router = express.Router();
 
-let users = [{
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Sincere@april.biz",
-        "address": {
-            "street": "Kulas Light",
-            "suite": "Apt. 556",
-            "city": "Gwenborough",
-            "zipcode": "92998-3874",
-            "geo": {
-                "lat": "-37.3159",
-                "lng": "81.1496"
-            }
-        },
-        "phone": "1-770-736-8031 x56442",
-        "website": "hildegard.org",
-        "company": {
-            "name": "Romaguera-Crona",
-            "catchPhrase": "Multi-layered client-server neural-net",
-            "bs": "harness real-time e-markets"
-        }
-    },
-    {
-        "id": 2,
-        "name": "Ervin Howell",
-        "username": "Antonette",
-        "email": "Shanna@melissa.tv",
-        "address": {
-            "street": "Victor Plains",
-            "suite": "Suite 879",
-            "city": "Wisokyburgh",
-            "zipcode": "90566-7771",
-            "geo": {
-                "lat": "-43.9509",
-                "lng": "-34.4618"
-            }
-        },
-        "phone": "010-692-6593 x09125",
-        "website": "anastasia.net",
-        "company": {
-            "name": "Deckow-Crist",
-            "catchPhrase": "Proactive didactic contingency",
-            "bs": "synergize scalable supply-chains"
-        }
-    },
-    {
-        "id": 3,
-        "name": "Clementine Bauch",
-        "username": "Samantha",
-        "email": "Nathan@yesenia.net",
-        "address": {
-            "street": "Douglas Extension",
-            "suite": "Suite 847",
-            "city": "McKenziehaven",
-            "zipcode": "59590-4157",
-            "geo": {
-                "lat": "-68.6102",
-                "lng": "-47.0653"
-            }
-        },
-        "phone": "1-463-123-4447",
-        "website": "ramiro.info",
-        "company": {
-            "name": "Romaguera-Jacobson",
-            "catchPhrase": "Face to face bifurcated interface",
-            "bs": "e-enable strategic applications"
-        }
-    },
-    {
-        "id": 4,
-        "name": "Patricia Lebsack",
-        "username": "Karianne",
-        "email": "Julianne.OConner@kory.org",
-        "address": {
-            "street": "Hoeger Mall",
-            "suite": "Apt. 692",
-            "city": "South Elvis",
-            "zipcode": "53919-4257",
-            "geo": {
-                "lat": "29.4572",
-                "lng": "-164.2990"
-            }
-        },
-        "phone": "493-170-9623 x156",
-        "website": "kale.biz",
-        "company": {
-            "name": "Robel-Corkery",
-            "catchPhrase": "Multi-tiered zero tolerance productivity",
-            "bs": "transition cutting-edge web services"
-        }
-    },
-    {
-        "id": 5,
-        "name": "Chelsey Dietrich",
-        "username": "Kamren",
-        "email": "Lucio_Hettinger@annie.ca",
-        "address": {
-            "street": "Skiles Walks",
-            "suite": "Suite 351",
-            "city": "Roscoeview",
-            "zipcode": "33263",
-            "geo": {
-                "lat": "-31.8129",
-                "lng": "62.5342"
-            }
-        },
-        "phone": "(254)954-1289",
-        "website": "demarco.info",
-        "company": {
-            "name": "Keebler LLC",
-            "catchPhrase": "User-centric fault-tolerant solution",
-            "bs": "revolutionize end-to-end systems"
-        }
-    },
-    {
-        "id": 6,
-        "name": "Mrs. Dennis Schulist",
-        "username": "Leopoldo_Corkery",
-        "email": "Karley_Dach@jasper.info",
-        "address": {
-            "street": "Norberto Crossing",
-            "suite": "Apt. 950",
-            "city": "South Christy",
-            "zipcode": "23505-1337",
-            "geo": {
-                "lat": "-71.4197",
-                "lng": "71.7478"
-            }
-        },
-        "phone": "1-477-935-8478 x6430",
-        "website": "ola.org",
-        "company": {
-            "name": "Considine-Lockman",
-            "catchPhrase": "Synchronised bottom-line interface",
-            "bs": "e-enable innovative applications"
-        }
-    },
-    {
-        "id": 7,
-        "name": "Kurtis Weissnat",
-        "username": "Elwyn.Skiles",
-        "email": "Telly.Hoeger@billy.biz",
-        "address": {
-            "street": "Rex Trail",
-            "suite": "Suite 280",
-            "city": "Howemouth",
-            "zipcode": "58804-1099",
-            "geo": {
-                "lat": "24.8918",
-                "lng": "21.8984"
-            }
-        },
-        "phone": "210.067.6132",
-        "website": "elvis.io",
-        "company": {
-            "name": "Johns Group",
-            "catchPhrase": "Configurable multimedia task-force",
-            "bs": "generate enterprise e-tailers"
-        }
-    },
-    {
-        "id": 8,
-        "name": "Nicholas Runolfsdottir V",
-        "username": "Maxime_Nienow",
-        "email": "Sherwood@rosamond.me",
-        "address": {
-            "street": "Ellsworth Summit",
-            "suite": "Suite 729",
-            "city": "Aliyaview",
-            "zipcode": "45169",
-            "geo": {
-                "lat": "-14.3990",
-                "lng": "-120.7677"
-            }
-        },
-        "phone": "586.493.6943 x140",
-        "website": "jacynthe.com",
-        "company": {
-            "name": "Abernathy Group",
-            "catchPhrase": "Implemented secondary concept",
-            "bs": "e-enable extensible e-tailers"
-        }
-    },
-    {
-        "id": 9,
-        "name": "Glenna Reichert",
-        "username": "Delphine",
-        "email": "Chaim_McDermott@dana.io",
-        "address": {
-            "street": "Dayna Park",
-            "suite": "Suite 449",
-            "city": "Bartholomebury",
-            "zipcode": "76495-3109",
-            "geo": {
-                "lat": "24.6463",
-                "lng": "-168.8889"
-            }
-        },
-        "phone": "(775)976-6794 x41206",
-        "website": "conrad.com",
-        "company": {
-            "name": "Yost and Sons",
-            "catchPhrase": "Switchable contextually-based project",
-            "bs": "aggregate real-time technologies"
-        }
-    },
-    {
-        "id": 10,
-        "name": "Clementina DuBuque",
-        "username": "Moriah.Stanton",
-        "email": "Rey.Padberg@karina.biz",
-        "address": {
-            "street": "Kattie Turnpike",
-            "suite": "Suite 198",
-            "city": "Lebsackbury",
-            "zipcode": "31428-2261",
-            "geo": {
-                "lat": "-38.2386",
-                "lng": "57.2232"
-            }
-        },
-        "phone": "024-648-3804",
-        "website": "ambrose.net",
-        "company": {
-            "name": "Hoeger LLC",
-            "catchPhrase": "Centralized empowering task-force",
-            "bs": "target end-to-end models"
-        }
-    }
-]
-
-//logique pour route user
-Router.route('/users')
-    .get((_, res) => {
-        if (users.length == 0) {
-            res.status(404).json([]);
-        }
+// Pour rechercher un user avec query
+// GET sur http://localhost:3000/users/search?name=Laurent&phone=0634646464
+// ne trouvera que les users avec name=Laurent ET phone=0634646464
+Router.route('/users/search')
+    .get(async (req, res) => {
+        console.log(req.query);
+        let searchParams = req.query;
+        let users = await UserModel.find({ ...searchParams });
         res.json(users);
-    })
-    .post((req, res) => {
-        let newUser = req.body;
-        users.push(newUser);
-        res.status(201).json(newUser);
     });
 
+// logique pour la route 'users'
+Router.route('/users')
+    // async / await https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Statements/async_function
+    .get(async (_, res) => {
+        // Récupération de TOUS les utilisateurs dans la base
+        // await = attends la reponse
+        let users = await UserModel.find();
 
-//logic pour la route 'user/id'
+        if (users.length === 0) {
+            res.status(404);
+        } else {
+            res.status(200);
+        }
+
+        res.json(users);
+    })
+    .post(async (req, res) => {
+        let newUser = req.body;
+        try {
+            let resp = await UserModel.create(newUser);
+            res.status(201).json(resp);
+        } catch (err) {
+            console.error(err);
+            sendErrMessage(res, err);
+        }
+    });
+
+// logique pour la route 'users/id'
 Router.route('/users/:id')
-    .get((req, res) => {
-        //recherche user
-        let user = users.find((usr) => {
-            return usr.id === parseInt(req.params.id);
-        })
+    .get(async (req, res) => {
+        try {
+            // recherche d'un utilisateur par id
+            let user = await UserModel.findById(req.params.id);
+            // let user = await UserModel.find({ '_id': req.params.id }); // équivalent
+            res.status(200).json(user);
+        } catch (err) {
+            sendErrMessage(res, err);
+        }
+    })
+    .put(async (req, res) => {
+        let newUser = req.body;
+        try {
+            let resp = await UserModel.findByIdAndUpdate(req.params.id, newUser);
+            res.json(resp);
+        } catch (err) {
+            sendErrMessage(res, err);
+        }
+    })
+    .patch(async (req, res) => {
+        // Recherche de l'utilisateur à mettre à jour
+        let user = await UserModel.findById(req.params.id);
+
         if (user) {
+            // Object.keys retourne les clés d'un objets
+            Object.keys(req.body).forEach((key) => {
+                // mise à jour partielle
+                user[key] = req.body[key];
+            });
+            // je met à jour l'utilisateur
+            await UserModel.findByIdAndUpdate(req.params.id, user);
             res.status(200);
             res.json(user);
         } else {
             res.status(404);
-            res.end()
-        }
-    })
-    .put((req, res) => {
-        let userIndex = users.findIndex((usr) => {
-            return usr.id === parseInt(req.params.id);
-        })
-        if (userIndex = !-1) {
-            users[userIndex] = req.body;
-            res.status(200)
-            res.json(users[userIndex]);
-
-        } else {
-            res.status(404);
-            res.end()
-        }
-    })
-    .patch((req, res) => {
-        let userIndex = users.findIndex((usr) => {
-            return usr.id === parseInt(req.params.id);
-        })
-        if (userIndex = !-1) {
-            //object.keys retourne les clées d'un objet
-            Object.keys(req.body).forEach((key) => {
-                users[index][key] = req.body[key]
-            })
-            res.status(200)
-            res.json(users[userIndex]);
-        } else {
-            res.status(404);
-            res.end()
-        }
-    })
-    .delete((req, res) => {
-        let userIndex = users.findIndex((usr) => {
-            return usr.id === parseInt(req.params.id);
-        });
-
-        if (userIndex = !-1) {
-
-            users.splice(userIndex, 1);
-            res.status(204);
             res.end();
-        } else {
-            res.status(404);
-            res.end()
+        }
+    })
+    .delete(async (req, res) => {
+        try {
+            let resp = await UserModel.findByIdAndDelete(req.params.id);
+            req.json(resp);
+        } catch (err) {
+            sendErrMessage(res, err);
         }
     });
 
-module.exports = Router
+// export de la route
+module.exports = Router;
+const sendErrMessage = (res, err) => {
+    res.status(400).json({
+        ok: false,
+        message: err.message
+    });
+}
+
