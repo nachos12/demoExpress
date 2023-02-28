@@ -4,7 +4,7 @@ services:
     ports:
       - "27017:27017"
   app:
-    build: .
+    image: totodocker12/image_expres:latest
     ports:
       - "3000:3000"
     environment:
