@@ -1,0 +1,13 @@
+name: "Demo"
+
+on:
+  push: 
+    branches: 
+    - main
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+     - name: afficher message
+       run: echo "Hello world"
