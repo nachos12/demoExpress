@@ -21,4 +21,4 @@ jobs:
         host: ${{ secrets.VM_HOST }}
         username: ${{ secrets.VM_USERNAME }}
         script: |
-          echo "Hello from the VM"
+          echo "Hello from the M"
